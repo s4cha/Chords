@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Note {
+struct Note: Equatable {
     let name: NoteName
     let accidental: Accidental
 }
+

@@ -3,115 +3,80 @@ import XCTest
 
 final class ChordsTests: XCTestCase {
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-//        let chords = Chords()
-//        Chords.run()
-//
-        
-        Chords.printChordForString("A")
-        
-        
+        Chords.printChordForString("C#")
         XCTAssertTrue(true)
     }
     
     func testAMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "A")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .A)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .C)
-        XCTAssertEqual(second?.accidental, .sharp)
-        XCTAssertEqual(third?.name, .E)
-        XCTAssertEqual(third?.accidental, .natural)
+        XCTAssertEqual(chord?.notes(), [A, Csharp, E])
+    }
+    
+    func testAsharpMajorChord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "A#")
+        XCTAssertEqual(chord?.notes(), [Asharp, D, F])
     }
 
     func testBMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "B")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .B)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .D)
-        XCTAssertEqual(second?.accidental, .sharp)
-        XCTAssertEqual(third?.name, .F)
-        XCTAssertEqual(third?.accidental, .sharp)
+        XCTAssertEqual(chord?.notes(), [B, Dsharp, Fsharp])
     }
     
     func testCMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "C")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .C)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .E)
-        XCTAssertEqual(second?.accidental, .natural)
-        XCTAssertEqual(third?.name, .G)
-        XCTAssertEqual(third?.accidental, .natural)
+        XCTAssertEqual(chord?.notes(), [C, E, G])
+    }
+    
+    func testCsharpMajorChord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "C#")
+        XCTAssertEqual(chord?.notes(), [Csharp, F, Gsharp])
     }
     
     func testDMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "D")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .D)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .F)
-        XCTAssertEqual(second?.accidental, .sharp)
-        XCTAssertEqual(third?.name, .A)
-        XCTAssertEqual(third?.accidental, .natural)
+        XCTAssertEqual(chord?.notes(), [D, Fsharp, A])
+    }
+    
+    func testDsharpMajorChord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "D#")
+        XCTAssertEqual(chord?.notes(), [Dsharp, G, Asharp])
     }
     
     func testEMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "E")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .E)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .G)
-        XCTAssertEqual(second?.accidental, .sharp)
-        XCTAssertEqual(third?.name, .B)
-        XCTAssertEqual(third?.accidental, .natural)
+        XCTAssertEqual(chord?.notes(), [E, Gsharp, B])
     }
     
     func testFMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "F")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .F)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .A)
-        XCTAssertEqual(second?.accidental, .natural)
-        XCTAssertEqual(third?.name, .C)
-        XCTAssertEqual(third?.accidental, .natural)
+        XCTAssertEqual(chord?.notes(), [F, A, C])
+    }
+    
+    func testFsharpMajorChord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "F#")
+        XCTAssertEqual(chord?.notes(), [Fsharp, Asharp, Csharp])
     }
     
     func testGMajorChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "G")
-        let first = chord?.notes()[0]
-        let second = chord?.notes()[1]
-        let third = chord?.notes()[2]
-        XCTAssertEqual(first?.name, .G)
-        XCTAssertEqual(first?.accidental, .natural)
-        XCTAssertEqual(second?.name, .B)
-        XCTAssertEqual(second?.accidental, .natural)
-        XCTAssertEqual(third?.name, .D)
-        XCTAssertEqual(third?.accidental, .natural)
+        XCTAssertEqual(chord?.notes(), [G, B, D])
+    }
+    
+    func testGsharpMajorChord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "G#")
+        XCTAssertEqual(chord?.notes(), [Gsharp, C, Dsharp])
     }
 
     static var allTests = [
