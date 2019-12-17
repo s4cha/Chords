@@ -176,10 +176,8 @@ class Chords {
     static func printChordForString(_ string: String) {
         let engine = ChordsEngine()
         let display = Display()
-        if let chord = engine.chordFor(string: "C") {
+        if let chord = engine.chordFor(string: string) {
             display.print(chord: chord)
         }
-        
-        
     }
 }

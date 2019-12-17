@@ -105,7 +105,7 @@ extension KeyboardNoteType {
         case .note11:
             return 84
         case .note12:
-            return 174
+            return 176
         }
     }
 }

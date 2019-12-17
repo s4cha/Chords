@@ -14,11 +14,9 @@ struct AbstractChord {
 
 
 func noteFor(note: Note, interval: Interval) -> Note {
-    
-    // ex: C + x hlaf steps = new note.
-
-    
-    return Note(name: .C, accidental: .natural)
+    let noteType = keyboardNoteType(fromNote: note)
+    let intervalNoteType = keyboardNoteType(forKeyboardNoteType: noteType, interval: interval)
+    return noteFromNoteType(noteType: intervalNoteType)
 }
 
 struct Chord {
