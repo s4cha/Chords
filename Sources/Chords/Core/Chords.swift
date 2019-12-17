@@ -151,7 +151,7 @@ class ChordsEngine {
                     if secondLetter == "#" {
                         accidental = .sharp
                     } else if secondLetter == "b" {
-//                        accidental = .flat
+                        accidental = .flat
                     }
                     
                     let note = Note(name: noteName, accidental: accidental)

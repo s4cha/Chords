@@ -7,8 +7,14 @@
 
 import Foundation
 
-struct Note: Equatable {
+struct Note {
     let name: NoteName
     let accidental: Accidental
 }
 
+/// Makes sure Ab == G# :)
+extension Note: Equatable {
+    static func == (lhs: Note, rhs: Note) -> Bool {
+        return keyboardNoteType(fromNote: lhs) == keyboardNoteType(fromNote: rhs)
+    }
+}
