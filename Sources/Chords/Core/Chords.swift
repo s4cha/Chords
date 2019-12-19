@@ -128,7 +128,7 @@ class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
-        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<minor>m?)(?<diminished>(dim|Dim)?)(?<seventh>7?)"#
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<seventh>7?)(?<majorSeventh>(maj7)?)(?<minor>m?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
         var noteName: NoteName?
@@ -197,6 +197,16 @@ class ChordsEngine {
                     if !seventhString.isEmpty {
                         // Add minor seventh
                         intervals.append(.seventhMinor)
+                    }
+                }
+                
+                // maj7
+                let majorSeventhRange = match.range(withName: "majorSeventh")
+                if majorSeventhRange.location != NSNotFound, let range = Range(majorSeventhRange, in: string) {
+                    let majorSeventhString = string[range]
+                    if !majorSeventhString.isEmpty {
+                        // Add major seventh
+                        intervals.append(.seventhMajor)
                     }
                 }
                 

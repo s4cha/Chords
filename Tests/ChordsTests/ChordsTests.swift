@@ -3,7 +3,7 @@ import XCTest
 
 final class ChordsTests: XCTestCase {
     func testExample() {
-        Chords.printChordForString("Gb")
+        Chords.printChordForString("G7")
         XCTAssertTrue(true)
     }
     
@@ -131,13 +131,17 @@ final class ChordsTests: XCTestCase {
         XCTAssertEqual(chord?.notes(), [B, D, F])
     }
     
-    func testFdimChord() {
+    func testF7Chord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "F7")
         XCTAssertEqual(chord?.notes(), [F, A, C, Dsharp])
     }
     
-    
+    func testFmaj7Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "Fmaj7")
+        XCTAssertEqual(chord?.notes(), [F, A, C, E])
+    }
 
     static var allTests = [
         ("testExample", testExample),
