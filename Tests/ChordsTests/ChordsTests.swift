@@ -147,6 +147,12 @@ final class ChordsTests: XCTestCase {
         XCTAssertEqual(chord?.notes(), [C, Dsharp, G, B])
     }
     
+    func testC6Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "C6")
+        XCTAssertEqual(chord?.notes(), [C, E, G, A])
+    }
+    
     // dim
     
     func testBdimChord() {
