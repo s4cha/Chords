@@ -115,12 +115,36 @@ final class ChordsTests: XCTestCase {
         XCTAssertEqual(chord?.notes(), [Gsharp, C, Dsharp])
     }
     
+    // Chord variations
     
-    /// minor
-    func testAminorChord() {
+    func testCminorChord() {
         let engine = ChordsEngine()
-        let chord = engine.chordFor(string: "Am")
-        XCTAssertEqual(chord?.notes(), [A, C, E])
+        let chord = engine.chordFor(string: "Cm")
+        XCTAssertEqual(chord?.notes(), [C, Dsharp, G])
+    }
+
+    func testC7Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "C7")
+        XCTAssertEqual(chord?.notes(), [C, E, G, Bb])
+    }
+    
+    func testCm7Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "Cm7")
+        XCTAssertEqual(chord?.notes(), [C, Dsharp, G, Bb])
+    }
+    
+    func testCmaj7Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "Cmaj7")
+        XCTAssertEqual(chord?.notes(), [C, E, G, B])
+    }
+    
+    func testCmM7Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "CmM7")
+        XCTAssertEqual(chord?.notes(), [C, Dsharp, G, B])
     }
     
     // dim
@@ -131,17 +155,9 @@ final class ChordsTests: XCTestCase {
         XCTAssertEqual(chord?.notes(), [B, D, F])
     }
     
-    func testF7Chord() {
-        let engine = ChordsEngine()
-        let chord = engine.chordFor(string: "F7")
-        XCTAssertEqual(chord?.notes(), [F, A, C, Dsharp])
-    }
+
     
-    func testFmaj7Chord() {
-        let engine = ChordsEngine()
-        let chord = engine.chordFor(string: "Fmaj7")
-        XCTAssertEqual(chord?.notes(), [F, A, C, E])
-    }
+
 
     static var allTests = [
         ("testExample", testExample),
