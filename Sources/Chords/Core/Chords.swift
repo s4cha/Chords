@@ -128,7 +128,7 @@ class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
-        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<sixth>6?)"#
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
         var noteName: NoteName?
@@ -220,13 +220,24 @@ class ChordsEngine {
                     }
                 }
                 
-                // 6
+                // C6
                 let sixthRange = match.range(withName: "sixth")
                 if sixthRange.location != NSNotFound, let range = Range(sixthRange, in: string) {
                     let sixthString = string[range]
                     if !sixthString.isEmpty {
                         // Add major seventh
                         intervals.append(.sixthMajor)
+                    }
+                }
+                
+                // C5
+                let fiveRange = match.range(withName: "five")
+                if fiveRange.location != NSNotFound, let range = Range(fiveRange, in: string) {
+                    if !string[range].isEmpty {
+                        // Remove third
+                        if let majorThirdIndex = intervals.firstIndex(of: .majorThird) {
+                            intervals.remove(at: majorThirdIndex)
+                        }
                     }
                 }
                 
