@@ -128,7 +128,7 @@ class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
-        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<minor>m?)(?<diminished>(dim)?)"#
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<minor>m?)(?<diminished>(dim|Dim)?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
         var noteName: NoteName?
@@ -175,6 +175,13 @@ class ChordsEngine {
                 if dimRange.location != NSNotFound, let range = Range(dimRange, in: string) {
                     let dimString = string[range]
                     if !dimString.isEmpty {
+                        
+                        // Replace major 3rd by minor 3rd
+                        if let majorThirdIndex = intervals.firstIndex(of: .majorThird) {
+                            intervals.remove(at: majorThirdIndex)
+                            intervals.insert(.minorThird, at: majorThirdIndex)
+                        }
+                        
                         // Replace 5th by tritone (5-)
                         if let fifthIndex = intervals.firstIndex(of: .perfectFifth) {
                             intervals.remove(at: fifthIndex)

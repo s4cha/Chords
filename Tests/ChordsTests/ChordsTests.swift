@@ -128,7 +128,7 @@ final class ChordsTests: XCTestCase {
     func testBdimChord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "Bdim")
-        XCTAssertEqual(chord?.notes(), [B, Dsharp, F])
+        XCTAssertEqual(chord?.notes(), [B, D, F])
     }
     
     
