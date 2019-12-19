@@ -8,6 +8,8 @@
 // note location.
 // frequency.
 
+import Foundation
+
 //
 //
 //func buildKeyboard() -> [Note] {
@@ -121,66 +123,60 @@ func keyboardNoteFor(note: KeyboardNote, interval: Interval) -> KeyboardNote? {
     return nil
 }
 
-// Note + interval = other note.
-
-
-
-
-
-
-
-//
-//
-//keyboardLayoutString.firstIndex(of: "*")?.utf16Offset(in: keyboardLayoutString)
-
-
-//
-
 
 class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
-
-        var noteName: NoteName? = nil
-        if let chordLetter = string.first {
-            if let noteName = Input.noteNameFrom(string: String(chordLetter)) {
-                var accidental = Accidental.natural
-                print(string.count)
-                if (string.count == 2) {
-                    let secondLetter = string.last!
-                    if secondLetter == "#" {
-                        accidental = .sharp
-                    } else if secondLetter == "b" {
-                        accidental = .flat
-                    }
-                    
-                    let note = Note(name: noteName, accidental: accidental)
-                    let chord = Chord(tonic: note, abstractChord: majorChord)
-                    return chord
+        var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<minor>m?)"#
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
+        var noteName: NoteName?
+        var accidental = Accidental.natural
+        var isMinor = false
+        
+        if let match = regex.firstMatch(in: string, options: [], range: nsrange) {
+            if #available(OSX 10.13, *) {
+                // Note
+                let noteRange = match.range(withName: "note")
+                if noteRange.location != NSNotFound, let range = Range(noteRange, in: string) {
+                    print("Note: \(string[range])")
+                    let noteString = string[range]
+                    noteName = Input.noteNameFrom(string: String(noteString))
                 }
                 
-                let note = Note(name: noteName, accidental: accidental)
-                let chord = Chord(tonic: note, abstractChord: majorChord)
-                return chord
-
-
+                // Accidental
+                let accidentalRange = match.range(withName: "accidental")
+                if accidentalRange.location != NSNotFound, let range = Range(accidentalRange, in: string) {
+                    print("Accidental: \(string[range])")
+                    let accidentalString = string[range]
+                    if accidentalString == "#" {
+                        accidental = .sharp
+                    } else if accidentalString == "b" {
+                        accidental = .flat
+                    }
+                }
+                
+                // Minor?
+                let minorRange = match.range(withName: "minor")
+                if minorRange.location != NSNotFound, let range = Range(minorRange, in: string) {
+                    print("Minor: \(string[range])")
+                    let minorString = string[range]
+                    if minorString == "m" {
+                        isMinor = true
+                        if let majorThirdIndex = intervals.firstIndex(of: .majorThird) {
+                            intervals.remove(at: majorThirdIndex)
+                            intervals.insert(.minorThird, at: majorThirdIndex)
+                        }
+                    }
+                }
             }
         }
-//        // Major Chord.
-//        if (string.count == 1) {
-//            if let noteName = Input.noteNameFrom(string: string) {
-//                let note = Note(name: noteName, accidental: .natural)
-//                let chord = Chord(tonic: note, abstractChord: majorChord)
-//                return chord
-//            }
-//        }
-//        if (string.count == 2) {
-//            if let noteName = Input.noteNameFrom(string: string) {
-//                let note = Note(name: noteName, accidental: .natural)
-//                let chord = Chord(tonic: note, abstractChord: majorChord)
-//                return chord
-//            }
-//        }
+        
+        if let noteName = noteName {
+            let note = Note(name: noteName, accidental: accidental)
+            return Chord(tonic: note, intervals: intervals)
+        }
         return nil
     }
 }

@@ -7,10 +7,9 @@
 
 import Foundation
 
-struct AbstractChord {
-    let name: String
-    let intervals: [Interval]
-}
+//struct AbstractChord {
+//    let intervals: [Interval]
+//}
 
 
 func noteFor(note: Note, interval: Interval) -> Note {
@@ -21,10 +20,10 @@ func noteFor(note: Note, interval: Interval) -> Note {
 
 struct Chord {
     let tonic: Note
-    let abstractChord: AbstractChord
+    let intervals: [Interval]
     
     func notes() -> [Note] {
-        let notes = abstractChord.intervals.map { i in
+        let notes = intervals.map { i in
             return noteFor(note: tonic, interval: i)
         }
         return notes
@@ -32,8 +31,8 @@ struct Chord {
 }
 
 
-let minorChord = AbstractChord(name: "minor", intervals: [.first, .minorThird, .perfectFifth])
-let majorChord = AbstractChord(name: "Major", intervals: [.first, .majorThird, .perfectFifth])
+//let minorChord = AbstractChord(name: "minor", intervals: [.first, .minorThird, .perfectFifth])
+//let majorChord = AbstractChord(name: "Major", intervals: [.first, .majorThird, .perfectFifth])
 
 
 

@@ -3,7 +3,7 @@ import XCTest
 
 final class ChordsTests: XCTestCase {
     func testExample() {
-        Chords.printChordForString("C#")
+        Chords.printChordForString("Gb")
         XCTAssertTrue(true)
     }
     
@@ -114,6 +114,16 @@ final class ChordsTests: XCTestCase {
         let chord = engine.chordFor(string: "G#")
         XCTAssertEqual(chord?.notes(), [Gsharp, C, Dsharp])
     }
+    
+    
+    /// minor
+    func testAminorChord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "Am")
+        XCTAssertEqual(chord?.notes(), [A, C, E])
+    }
+    
+    
 
     static var allTests = [
         ("testExample", testExample),
