@@ -128,7 +128,7 @@ class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
-        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)(?<second>(add2)?)(?<fourth>(add4)?)(?<dimFive>(-5)?)"#
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)(?<addSecond>(add2)?)(?<second>(2)?)(?<fourth>(add4)?)(?<dimFive>(-5)?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
         var noteName: NoteName?
@@ -241,9 +241,23 @@ class ChordsEngine {
                     }
                 }
                 
-                // add2
+                // C2
                 let secondRange = match.range(withName: "second")
                 if secondRange.location != NSNotFound, let range = Range(secondRange, in: string) {
+                    if !string[range].isEmpty {
+                        // Add major second
+                        intervals.append(.secondMajor)
+                        
+                         // Remove third
+                        if let majorThirdIndex = intervals.firstIndex(of: .majorThird) {
+                            intervals.remove(at: majorThirdIndex)
+                        }
+                    }
+                }
+                
+                // add2
+                let addSecondRange = match.range(withName: "addSecond")
+                if addSecondRange.location != NSNotFound, let range = Range(addSecondRange, in: string) {
                     if !string[range].isEmpty {
                         // Add major second
                         intervals.append(.secondMajor)
