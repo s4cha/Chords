@@ -128,7 +128,7 @@ class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
-        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)(?<addSecond>(add2)?)(?<second>(2|sus2)?)(?<sus4>(sus4)?)(?<fourth>(add4)?)(?<dimFive>(-5)?)(?<nine>(9)?)(?<add9>(add9)?)"#
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<aug>(aug)?)(?<sixth>6?)(?<addSecond>(add2)?)(?<second>(2|sus2)?)(?<sus4>(sus4)?)(?<fourth>(add4)?)(?<dimFive>(-5)?)(?<nine>(9)?)(?<add9>(add9)?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
         var noteName: NoteName?
@@ -299,6 +299,18 @@ class ChordsEngine {
                             intervals.insert(.tritone, at: fifthIndex)
                         }
                     }
+                }
+                
+                // aug
+                let augRange = match.range(withName: "aug")
+                if augRange.location != NSNotFound, let range = Range(augRange, in: string) {
+                  if !string[range].isEmpty {
+                      // Replace 5th by augmented fifth (minor sixth)
+                      if let fifthIndex = intervals.firstIndex(of: .perfectFifth) {
+                          intervals.remove(at: fifthIndex)
+                          intervals.insert(.sixthMinor, at: fifthIndex)
+                      }
+                  }
                 }
                 
                 // Cadd9
