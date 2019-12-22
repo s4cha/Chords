@@ -207,6 +207,12 @@ final class ChordsTests: XCTestCase {
         XCTAssertEqual(chord?.notes(), [C, F, G, Bb])
     }
     
+    func testCadd9Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "Cadd9")
+        XCTAssertEqual(chord?.notes(), [C, E, G, D])
+    }
+    
     func testC9Chord() {
         let engine = ChordsEngine()
         let chord = engine.chordFor(string: "C9")
