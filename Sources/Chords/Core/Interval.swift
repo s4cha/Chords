@@ -21,6 +21,8 @@ enum Interval: CaseIterable {
     case seventhMinor
     case seventhMajor
     case octave
+    case ninthMinor
+    case ninthMajor
 }
 
 
