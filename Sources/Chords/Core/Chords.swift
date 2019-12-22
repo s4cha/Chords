@@ -128,7 +128,7 @@ class ChordsEngine {
     
     func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
-        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)(?<second>(add2)?)(?<fourth>(add4)?)"#
+        let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)(?<second>(add2)?)(?<fourth>(add4)?)(?<dimFive>(-5)?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let nsrange = NSRange(string.startIndex..<string.endIndex, in: string)
         var noteName: NoteName?
@@ -259,6 +259,19 @@ class ChordsEngine {
                     }
                 }
                 
+                // -5
+                let dimFiveRange = match.range(withName: "dimFive")
+                if dimFiveRange.location != NSNotFound, let range = Range(dimFiveRange, in: string) {
+                    let dimString = string[range]
+                    if !dimString.isEmpty {
+                        
+                        // Replace 5th by tritone (5-)
+                        if let fifthIndex = intervals.firstIndex(of: .perfectFifth) {
+                            intervals.remove(at: fifthIndex)
+                            intervals.insert(.tritone, at: fifthIndex)
+                        }
+                    }
+                }
                 
             }
         }
