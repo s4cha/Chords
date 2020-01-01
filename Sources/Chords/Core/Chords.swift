@@ -124,9 +124,11 @@ func keyboardNoteFor(note: KeyboardNote, interval: Interval) -> KeyboardNote? {
 }
 
 
-class ChordsEngine {
+public class ChordsEngine {
     
-    func chordFor(string: String) -> Chord? {
+    public init() {    }
+    
+    public func chordFor(string: String) -> Chord? {
         var intervals: [Interval] = [.first, .majorThird, .perfectFifth]
         let pattern = #"(?<note>[A-G])(?<accidental>(#|b)?)(?<dim7>(dim7)?)(?<diminished>(dim|Dim)?)(?<majorSeventh>(maj7)?)(?<minor>m?)(?<aug>(aug)?)(?<seventh>7?)(?<M7>(M7)?)(?<five>5?)(?<sixth>6?)(?<addSecond>(add2)?)(?<second>(2|sus2)?)(?<sus4>(sus4|sus)?)(?<fourth>(add4)?)(?<dimFive>(-5)?)(?<nine>(9)?)(?<add9>(add9)?)"#
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
@@ -403,28 +405,28 @@ class Chords {
 }
 
 // Note shortcuts
-let Ab = Note(name: .A, accidental: .flat)
-let A = Note(name: .A, accidental: .natural)
-let Asharp = Note(name: .A, accidental: .sharp)
+public let Ab = Note(name: .A, accidental: .flat)
+public let A = Note(name: .A, accidental: .natural)
+public let Asharp = Note(name: .A, accidental: .sharp)
 
-let Bb = Note(name: .B, accidental: .flat)
-let B = Note(name: .B, accidental: .natural)
+public let Bb = Note(name: .B, accidental: .flat)
+public let B = Note(name: .B, accidental: .natural)
 
-let C = Note(name: .C, accidental: .natural)
-let Csharp = Note(name: .C, accidental: .sharp)
+public let C = Note(name: .C, accidental: .natural)
+public let Csharp = Note(name: .C, accidental: .sharp)
 
-let Db = Note(name: .D, accidental: .flat)
-let D = Note(name: .D, accidental: .natural)
-let Dsharp = Note(name: .D, accidental: .sharp)
+public let Db = Note(name: .D, accidental: .flat)
+public let D = Note(name: .D, accidental: .natural)
+public let Dsharp = Note(name: .D, accidental: .sharp)
 
-let Eb = Note(name: .E, accidental: .flat)
-let E = Note(name: .E, accidental: .natural)
+public let Eb = Note(name: .E, accidental: .flat)
+public let E = Note(name: .E, accidental: .natural)
 
 
-let F = Note(name: .F, accidental: .natural)
-let Fsharp = Note(name: .F, accidental: .sharp)
+public let F = Note(name: .F, accidental: .natural)
+public let Fsharp = Note(name: .F, accidental: .sharp)
 
-let Gb = Note(name: .G, accidental: .flat)
-let G = Note(name: .G, accidental: .natural)
-let Gsharp = Note(name: .G, accidental: .sharp)
+public let Gb = Note(name: .G, accidental: .flat)
+public let G = Note(name: .G, accidental: .natural)
+public let Gsharp = Note(name: .G, accidental: .sharp)
 

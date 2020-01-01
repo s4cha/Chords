@@ -18,11 +18,11 @@ func noteFor(note: Note, interval: Interval) -> Note {
     return noteFromNoteType(noteType: intervalNoteType)
 }
 
-struct Chord {
+public struct Chord {
     let tonic: Note
     let intervals: [Interval]
     
-    func notes() -> [Note] {
+    public func notes() -> [Note] {
         let notes = intervals.map { i in
             return noteFor(note: tonic, interval: i)
         }
