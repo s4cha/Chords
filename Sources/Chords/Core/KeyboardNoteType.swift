@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeyboardNoteType: CaseIterable {
+public enum KeyboardNoteType: CaseIterable {
     case note1 // C
     case note2 // C#
     case note3 // D
@@ -41,7 +41,7 @@ func naturalKeyboardNoteType(fromNote note: Note) -> KeyboardNoteType {
     }
 }
 
-func keyboardNoteType(fromNote note: Note) -> KeyboardNoteType {
+public func keyboardNoteType(fromNote note: Note) -> KeyboardNoteType {
     let naturalNoteType = naturalKeyboardNoteType(fromNote: note)
     switch note.accidental {
     case .flat:
