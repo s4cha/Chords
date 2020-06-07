@@ -28,6 +28,6 @@ enum Interval: CaseIterable {
 
 extension Interval {
     func numberOfHalfSteps() -> Int {
-        return Interval.allCases.index(of: self)!
+        return Interval.allCases.firstIndex(of: self)!
     }
 }

@@ -386,13 +386,8 @@ class Chords {
         
         printNote(note: keyboardNote2)
         
-        
-
         print(numberOfHalfStepsBetween(keyboardNote1, keyboardNote2))
-
         print(intervalBetween(keyboardNote1, keyboardNote2))
-
-
     }
     
     static func printChordForString(_ string: String) {
