@@ -30,6 +30,19 @@ public struct Chord {
     }
 }
 
+public extension Chord {
+    func nextInversion() -> Chord {
+        var newIntervals = intervals
+        if !intervals.isEmpty {
+            let first = newIntervals.removeFirst()
+            newIntervals.append(first)
+        }
+        return Chord(tonic: tonic, intervals: newIntervals)
+    }
+}
+
+
+
 
 //let minorChord = AbstractChord(name: "minor", intervals: [.first, .minorThird, .perfectFifth])
 //let majorChord = AbstractChord(name: "Major", intervals: [.first, .majorThird, .perfectFifth])
