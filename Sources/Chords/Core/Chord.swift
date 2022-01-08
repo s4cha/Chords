@@ -19,8 +19,8 @@ func noteFor(note: Note, interval: Interval) -> Note {
 }
 
 public struct Chord {
-    let tonic: Note
-    let intervals: [Interval]
+    public let tonic: Note
+    public let intervals: [Interval]
     
     public func notes() -> [Note] {
         let notes = intervals.map { i in

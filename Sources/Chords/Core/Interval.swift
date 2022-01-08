@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Interval: CaseIterable {
+public enum Interval: CaseIterable {
     case first
     case secondMinor
     case secondMajor
@@ -26,7 +26,7 @@ enum Interval: CaseIterable {
 }
 
 
-extension Interval {
+public extension Interval {
     func numberOfHalfSteps() -> Int {
         return Interval.allCases.firstIndex(of: self)!
     }
