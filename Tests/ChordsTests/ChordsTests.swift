@@ -279,9 +279,13 @@ final class ChordsTests: XCTestCase {
         XCTAssertEqual(chord?.notes(), [C, Eb, Gb, A])
     }
     
+    func testASharpMinorAdd9Chord() {
+        let engine = ChordsEngine()
+        let chord = engine.chordFor(string: "A#madd9")
+        XCTAssertEqual(chord?.notes(), [Asharp, Csharp, F, C])
+    }
 
     
-
 
     static var allTests = [
         ("testExample", testExample),
